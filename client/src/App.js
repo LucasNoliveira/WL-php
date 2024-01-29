@@ -1,13 +1,14 @@
-// Exemplo: src/App.js
-
 import React from 'react';
-import Form from './components/Form';
+import RegistrationForm from './RegistrationForm';
+import ExamForm from './ExamForm';
 
 const App = () => {
   return (
     <div>
-      <h1>Teste da API Laravel com React</h1>
-      <Form />
+      <h1>Patient Registration</h1>
+      <RegistrationForm />
+      <h1>Exam Registration</h1>
+      <ExamForm />
     </div>
   );
 };
