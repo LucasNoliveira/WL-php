@@ -45,4 +45,15 @@ class PacienteController extends Controller
 
         return response()->json($pacientes);
     }
+
+    public function obterPaciente($numeroAtendimento)
+    {
+        $paciente = Paciente::where('numero_atendimento', $numeroAtendimento)->with('exames')->first();
+
+        if ($paciente) {
+            return response()->json($paciente);
+        } else {
+            return response()->json(['message' => 'Paciente não encontrado'], 404);
+        }
+    }
 }
