@@ -43,49 +43,51 @@ const RegistrationForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Full Name:
-                <input
-                    type="text"
-                    name="nome_completo"
-                    value={formData.nome_completo}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <br />
-            <label>
-                Gender:
-                <input
-                    type="text"
-                    name="sexo"
-                    value={formData.sexo}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <br />
-            <label>
-                Email:
-                <input
-                    type="text"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <br />
-            <label>
-                Phone:
-                <input
-                    type="text"
-                    name="celular"
-                    value={formData.celular}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <br />
-            <button type="submit">Submit</button>
-        </form>
+        <div class="container">
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Full Name:
+                    <input
+                        type="text"
+                        name="nome_completo"
+                        value={formData.nome_completo}
+                        onChange={handleInputChange}
+                    />
+                </label>
+                <br />
+                <label>
+                    Gender:
+                    <input
+                        type="text"
+                        name="sexo"
+                        value={formData.sexo}
+                        onChange={handleInputChange}
+                    />
+                </label>
+                <br />
+                <label>
+                    Email:
+                    <input
+                        type="text"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                    />
+                </label>
+                <br />
+                <label>
+                    Phone:
+                    <input
+                        type="text"
+                        name="celular"
+                        value={formData.celular}
+                        onChange={handleInputChange}
+                    />
+                </label>
+                <br />
+                <button type="submit">Submit</button>
+            </form>
+        </div>
     );
 };
 

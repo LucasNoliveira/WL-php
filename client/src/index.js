@@ -39,7 +39,7 @@ const App = () => {
       )}
 
       {!showPatientForm && (
-        <button onClick={handlePatientLinkClick}>Clique para registrar um paciente</button>
+        <button onClick={handlePatientLinkClick} className='button'>Clique para registrar um paciente</button>
       )}
     </div>
   );
