@@ -9,7 +9,6 @@ const RegistrationForm = () => {
         email: '',
         celular: '',
     });
-    
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;

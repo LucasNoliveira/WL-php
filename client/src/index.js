@@ -22,24 +22,24 @@ const App = () => {
     <div>
       {showPatientForm && (
         <div>
-          <h1>Patient Registration</h1>
+          <h1>Registro de Pacientes</h1>
           <Form />
         </div>
       )}
 
       {showExamForm && (
         <div>
-          <h1>Exam Registration</h1>
+          <h1>Registro de Exames</h1>
           <ExamForm />
         </div>
       )}
 
       {!showExamForm && (
-        <button onClick={handleExamLinkClick}>Click here to register an exam</button>
+        <button onClick={handleExamLinkClick}>Clique para registrar um exame</button>
       )}
 
       {!showPatientForm && (
-        <button onClick={handlePatientLinkClick}>Click here to register a patient</button>
+        <button onClick={handlePatientLinkClick}>Clique para registrar um paciente</button>
       )}
     </div>
   );
