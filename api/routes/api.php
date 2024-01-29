@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RelatorioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +23,6 @@ use App\Http\Controllers\ExameController;
 Route::post('/cadastrar-paciente', [PacienteController::class, 'cadastrarPaciente']);
 // Route::post('/cadastrar-exame', [ExameController::class, 'cadastrarExame']);
 Route::post('/cadastrar-exame', [ExameController::class, 'cadastrarExame']);
-Route::get('/cadastrar-exame', [RelatorioController::class, 'gerarRelatorio']);
 Route::get('/exames', [ExameController::class, 'visualizarExames']);
 Route::get('/pacientes', [PacienteController::class, 'listarPacientes']);
 Route::get('/pacientes/{numero_atendimento}', [PacienteController::class, 'obterPaciente']);
