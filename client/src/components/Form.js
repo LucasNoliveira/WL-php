@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import '../styles.css';
+
 
 const RegistrationForm = () => {
     const [formData, setFormData] = useState({
@@ -7,6 +9,7 @@ const RegistrationForm = () => {
         email: '',
         celular: '',
     });
+    
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;

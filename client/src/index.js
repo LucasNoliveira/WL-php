@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import Form from './components/Form';
 import ExamForm from './components/ExamForm';
+import './styles.css';
 
 const App = () => {
   const [showPatientForm, setShowPatientForm] = useState(true);
