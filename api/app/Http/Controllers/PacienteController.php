@@ -18,6 +18,7 @@ class PacienteController extends Controller
             'exames' => 'required|array', // Certifique-se de que 'exames' seja um array
         ]);
 
+
         // Geração de número de atendimento aleatório
         $numeroAtendimento = mt_rand(100000, 999999);
 
@@ -30,9 +31,18 @@ class PacienteController extends Controller
             'celular' => $request->input('celular'),
         ]);
 
+
+
         // Vinculação dos exames ao paciente
         $paciente->exames()->attach($request->input('exames'));
 
         return response()->json($paciente, 201);
+    }
+
+    public function listarPacientes()
+    {
+        $pacientes = Paciente::with('exames')->get();
+
+        return response()->json($pacientes);
     }
 }
