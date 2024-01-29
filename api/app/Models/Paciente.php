@@ -18,4 +18,10 @@ class Paciente extends Model
     {
         return $this->belongsToMany(Exame::class, 'paciente_exame', 'paciente_id', 'exame_id');
     }
+
+    public function vincularExames(array $exames)
+    {
+        $examesIds = Exame::whereIn('codigo', $exames)->pluck('id');
+        $this->exames()->sync($examesIds);
+    }
 }

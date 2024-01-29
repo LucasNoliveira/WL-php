@@ -15,7 +15,7 @@ class PacienteController extends Controller
             'sexo' => 'required|in:M,F',
             'email' => 'nullable|email',
             'celular' => 'nullable',
-            'exames' => 'required|array', // Certifique-se de que 'exames' seja um array
+            'exames' => 'nullable|array',
         ]);
 
 
@@ -31,10 +31,9 @@ class PacienteController extends Controller
             'celular' => $request->input('celular'),
         ]);
 
-
-
-        // Vinculação dos exames ao paciente
-        $paciente->exames()->attach($request->input('exames'));
+        if ($request->has('exames')) {
+            $paciente->vincularExames($request->input('exames'));
+        }
 
         return response()->json($paciente, 201);
     }
