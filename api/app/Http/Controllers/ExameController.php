@@ -25,4 +25,11 @@ class ExameController extends Controller
 
         return response()->json($exame, 201);
     }
+
+    public function visualizarExames()
+    {
+        $exames = Exame::all();
+
+        return response()->json($exames, 200);
+    }
 }

@@ -25,3 +25,5 @@ Route::post('/cadastrar-paciente', [PacienteController::class, 'cadastrarPacient
 // Route::post('/cadastrar-exame', [ExameController::class, 'cadastrarExame']);
 Route::post('/cadastrar-exame', [ExameController::class, 'cadastrarExame']);
 Route::get('/cadastrar-exame', [RelatorioController::class, 'gerarRelatorio']);
+Route::get('/exames', [ExameController::class, 'visualizarExames']);
+
