@@ -35,7 +35,7 @@ class PacienteController extends Controller
             $paciente->vincularExames($request->input('exames'));
         }
 
-        return response()->json($paciente, 201);
+        return response()->json(['numero_atendimento' => $numeroAtendimento], 201);
     }
 
     public function listarPacientes()

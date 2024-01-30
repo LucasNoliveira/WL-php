@@ -1,4 +1,3 @@
-// components/RegistrationForm.js
 import React, { useState } from 'react';
 import {
     TextField,
@@ -46,15 +45,14 @@ const RegistrationForm = () => {
                 body: JSON.stringify(formData),
             });
 
-            const responseData = await response.text();
-            console.log('Response:', responseData);
-
             if (response.ok) {
-                const data = JSON.parse(responseData);
-                console.log('Patient registered successfully:', data);
-                // Handle success
+                const responseData = await response.json();
+                console.log('Patient registered successfully:', responseData);
+
+                // You can update the UI or redirect the user after successful registration
             } else {
                 console.error('Failed to register patient');
+                // Handle the error, e.g., display an error message to the user
             }
         } catch (error) {
             console.error('Error:', error);
@@ -69,7 +67,7 @@ const RegistrationForm = () => {
     return (
         <Container maxWidth="sm">
             <Dialog open={showWelcomeMessage} onClose={handleWelcomeMessageClose}>
-                <DialogTitle>Bem vindo admin</DialogTitle>
+                <DialogTitle>Bem-vindo admin</DialogTitle>
                 <DialogContent>
                     <Typography>
                         Você está no perfil de administrador. Você tem todas as permissões para criar pacientes, registros e puxar relatórios
@@ -102,9 +100,9 @@ const RegistrationForm = () => {
                                 label="Gênero"
                             >
                                 <MenuItem value="">Selecione o seu Gênero</MenuItem>
-                                <MenuItem value="male">Masculino</MenuItem>
-                                <MenuItem value="female">Feminino</MenuItem>
-                                <MenuItem value="other">Outro</MenuItem>
+                                <MenuItem value="M">Masculino</MenuItem>
+                                <MenuItem value="F">Feminino</MenuItem>
+                                <MenuItem value="O">Outro</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
