@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { TextField, Button, Grid, Container, Typography } from '@mui/material';
 import '../styles.css';
 
 const ExamForm = () => {
@@ -41,39 +42,42 @@ const ExamForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Code:
-                <input
-                    type="text"
-                    name="codigo"
-                    value={examData.codigo}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <br />
-            <label>
-                Description:
-                <input
-                    type="text"
-                    name="descricao"
-                    value={examData.descricao}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <br />
-            <label>
-                Value:
-                <input
-                    type="text"
-                    name="valor"
-                    value={examData.valor}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <br />
-            <button type="submit">Submit</button>
-        </form>
+        <Container component="main" maxWidth="sm">
+            <form onSubmit={handleSubmit}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <TextField
+                            fullWidth
+                            label="Code"
+                            name="codigo"
+                            value={examData.codigo}
+                            onChange={handleInputChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            fullWidth
+                            label="Description"
+                            name="descricao"
+                            value={examData.descricao}
+                            onChange={handleInputChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            fullWidth
+                            label="Value"
+                            name="valor"
+                            value={examData.valor}
+                            onChange={handleInputChange}
+                        />
+                    </Grid>
+                </Grid>
+                <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>
+                    Submit
+                </Button>
+            </form>
+        </Container>
     );
 };
 
