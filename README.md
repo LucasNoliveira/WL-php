@@ -9,20 +9,20 @@ Este projeto é um sistema de gerenciamento para laboratórios, desenvolvido par
 <img height="30" src="https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white" />
 
 ## Instalação
-`git clone https://github.com/seu-usuario/WL-php`
+`git clone https://github.com/LucasNoliveira/WL-php`
 
 ## Instale as dependências do backend:
 `composer install`
 
-cd client
+`cd client`
 `npm install`
 
 ## Uso
-`cd api
-php artisan serve`
+`cd api`
+`php artisan serve`
 
-`cd client
-npm start`
+`cd client`
+`npm start`
 
 Acesse o aplicativo no navegador: http://localhost:3000
 
