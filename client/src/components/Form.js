@@ -1,6 +1,6 @@
+// components/RegistrationForm.js
 import React, { useState } from 'react';
-import '../styles.css';
-
+import { TextField, Button, Container, Typography, Grid } from '@mui/material';
 
 const RegistrationForm = () => {
     const [formData, setFormData] = useState({
@@ -30,64 +30,68 @@ const RegistrationForm = () => {
                 body: JSON.stringify(formData),
             });
 
+            const responseData = await response.text();
+            console.log('Response:', responseData);
+
             if (response.ok) {
-                const data = await response.json();
+                const data = JSON.parse(responseData);
                 console.log('Patient registered successfully:', data);
-                // You can update the UI or redirect the user after successful registration
+                // Handle success
             } else {
                 console.error('Failed to register patient');
             }
         } catch (error) {
             console.error('Error:', error);
+            // Handle error
         }
     };
 
     return (
-        <div class="container">
+        <Container maxWidth="sm">
             <form onSubmit={handleSubmit}>
-                <label>
-                    Full Name:
-                    <input
-                        type="text"
-                        name="nome_completo"
-                        value={formData.nome_completo}
-                        onChange={handleInputChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    Gender:
-                    <input
-                        type="text"
-                        name="sexo"
-                        value={formData.sexo}
-                        onChange={handleInputChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    Email:
-                    <input
-                        type="text"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    Phone:
-                    <input
-                        type="text"
-                        name="celular"
-                        value={formData.celular}
-                        onChange={handleInputChange}
-                    />
-                </label>
-                <br />
-                <button type="submit">Submit</button>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <TextField
+                            fullWidth
+                            label="Full Name"
+                            name="nome_completo"
+                            value={formData.nome_completo}
+                            onChange={handleInputChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            fullWidth
+                            label="Gender"
+                            name="sexo"
+                            value={formData.sexo}
+                            onChange={handleInputChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            fullWidth
+                            label="Email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            fullWidth
+                            label="Phone"
+                            name="celular"
+                            value={formData.celular}
+                            onChange={handleInputChange}
+                        />
+                    </Grid>
+                </Grid>
+                <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>
+                    Submit
+                </Button>
             </form>
-        </div>
+        </Container>
     );
 };
 

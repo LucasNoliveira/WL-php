@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import Form from './components/Form';
+import { Button, CssBaseline, Container, Typography } from '@mui/material';
+import RegistrationForm from './components/Form';
 import ExamForm from './components/ExamForm';
 import './styles.css';
 
@@ -19,29 +20,24 @@ const App = () => {
   };
 
   return (
-    <div>
-      {showPatientForm && (
-        <div>
-          <h1>Registro de Pacientes</h1>
-          <Form />
-        </div>
-      )}
-
-      {showExamForm && (
-        <div>
-          <h1>Registro de Exames</h1>
-          <ExamForm />
-        </div>
-      )}
-
+    <Container component="main" maxWidth="sm" style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', padding: '3rem', gap:'1rem' }}>
+      <CssBaseline />
+      <Typography variant="h4" color="primary" gutterBottom>
+        {showPatientForm ? 'Registro de Pacientes' : 'Registro de Exames'}
+      </Typography>
+      {showPatientForm && <RegistrationForm />}
+      {showExamForm && <ExamForm />}
       {!showExamForm && (
-        <button onClick={handleExamLinkClick}>Clique para registrar um exame</button>
+        <Button onClick={handleExamLinkClick} variant="contained" color="primary" fullWidth>
+          Clique para registrar um exame
+        </Button>
       )}
-
       {!showPatientForm && (
-        <button onClick={handlePatientLinkClick} className='button'>Clique para registrar um paciente</button>
+        <Button onClick={handlePatientLinkClick} variant="contained" color="secondary" fullWidth>
+          Clique para registrar um paciente
+        </Button>
       )}
-    </div>
+    </Container>
   );
 };
 
