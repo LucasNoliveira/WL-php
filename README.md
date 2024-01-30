@@ -1,4 +1,5 @@
 # Sistema de Gerenciamento de Laboratórios
+![Captura de tela 2024-01-30 150234](https://github.com/LucasNoliveira/WL-php/assets/83134855/45314d2e-c97e-4867-80b1-e275e1f39ff0)
 
 Este projeto é um sistema de gerenciamento para laboratórios, desenvolvido para atender às necessidades específicas desse setor. O sistema permite o registro de atendimentos, informações do paciente e resultados de exames.
 
