@@ -48,7 +48,7 @@ const ExamForm = () => {
                     <Grid item xs={12}>
                         <TextField
                             fullWidth
-                            label="Code"
+                            label="Código"
                             name="codigo"
                             value={examData.codigo}
                             onChange={handleInputChange}
@@ -57,7 +57,7 @@ const ExamForm = () => {
                     <Grid item xs={12}>
                         <TextField
                             fullWidth
-                            label="Description"
+                            label="Descrição"
                             name="descricao"
                             value={examData.descricao}
                             onChange={handleInputChange}
@@ -66,7 +66,7 @@ const ExamForm = () => {
                     <Grid item xs={12}>
                         <TextField
                             fullWidth
-                            label="Value"
+                            label="Valor"
                             name="valor"
                             value={examData.valor}
                             onChange={handleInputChange}
