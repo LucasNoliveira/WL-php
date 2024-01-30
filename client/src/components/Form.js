@@ -21,7 +21,7 @@ const RegistrationForm = () => {
         sexo: '',
         email: '',
         celular: '',
-        exame: '',
+        exame: '', // Adicionado campo exame para armazenar o código do exame selecionado
     });
 
     const [showWelcomeMessage, setShowWelcomeMessage] = useState(true);
@@ -76,7 +76,6 @@ const RegistrationForm = () => {
             if (response.ok) {
                 const dadosResposta = await response.json();
                 console.log('Paciente cadastrado com sucesso:', dadosResposta);
-                console.log(formDataComCodigo)
 
                 const { numero_atendimento } = dadosResposta;
                 const respostaPaciente = await fetch(`http://127.0.0.1:8000/api/pacientes/${numero_atendimento}`);
@@ -169,9 +168,9 @@ const RegistrationForm = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <FormControl fullWidth>
-                                <InputLabel>Exames</InputLabel>
+                                <InputLabel>Exame</InputLabel>
                                 <Select
-                                    name="exames"
+                                    name="exame"
                                     value={formData.exame}
                                     onChange={handleInputChange}
                                     label="Exame"
