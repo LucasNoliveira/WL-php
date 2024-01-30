@@ -1,6 +1,20 @@
 // components/RegistrationForm.js
 import React, { useState } from 'react';
-import { TextField, Button, Container, Typography, Grid, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
+import {
+    TextField,
+    Button,
+    Container,
+    Typography,
+    Grid,
+    Select,
+    MenuItem,
+    InputLabel,
+    FormControl,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+} from '@mui/material';
 
 const RegistrationForm = () => {
     const [formData, setFormData] = useState({
@@ -9,6 +23,8 @@ const RegistrationForm = () => {
         email: '',
         celular: '',
     });
+
+    const [showWelcomeMessage, setShowWelcomeMessage] = useState(true);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -46,8 +62,25 @@ const RegistrationForm = () => {
         }
     };
 
+    const handleWelcomeMessageClose = () => {
+        setShowWelcomeMessage(false);
+    };
+
     return (
         <Container maxWidth="sm">
+            <Dialog open={showWelcomeMessage} onClose={handleWelcomeMessageClose}>
+                <DialogTitle>Bem vindo admin</DialogTitle>
+                <DialogContent>
+                    <Typography>
+                        Você está no perfil de administrador. Você tem todas as permissões para criar pacientes, registros e puxar relatórios
+                    </Typography>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleWelcomeMessageClose} color="primary">
+                        Ok
+                    </Button>
+                </DialogActions>
+            </Dialog>
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
@@ -68,9 +101,7 @@ const RegistrationForm = () => {
                                 onChange={handleInputChange}
                                 label="Gênero"
                             >
-                                <MenuItem value="">
-                                    Selecione o seu Gênero
-                                </MenuItem>
+                                <MenuItem value="">Selecione o seu Gênero</MenuItem>
                                 <MenuItem value="male">Masculino</MenuItem>
                                 <MenuItem value="female">Feminino</MenuItem>
                                 <MenuItem value="other">Outro</MenuItem>
@@ -97,7 +128,7 @@ const RegistrationForm = () => {
                     </Grid>
                 </Grid>
                 <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>
-                    Submit
+                    Cadastrar paciente
                 </Button>
             </form>
         </Container>

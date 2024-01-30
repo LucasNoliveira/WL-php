@@ -74,7 +74,7 @@ const ExamForm = () => {
                     </Grid>
                 </Grid>
                 <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>
-                    Submit
+                    Enviar Exame
                 </Button>
             </form>
         </Container>
