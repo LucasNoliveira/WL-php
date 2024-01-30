@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom'; // Certifique-se de ter react-router-dom instalado
 
 const PatientReport = () => {
     const { numero_atendimento } = useParams();
@@ -9,38 +9,46 @@ const PatientReport = () => {
         const fetchPatientData = async () => {
             try {
                 const response = await fetch(`http://127.0.0.1:8000/api/pacientes/${numero_atendimento}`);
-                const data = await response.json();
-                setPatientData(data);
+                if (response.ok) {
+                    const responseData = await response.json();
+                    setPatientData(responseData);
+                } else {
+                    console.error('Failed to fetch patient data');
+                }
             } catch (error) {
-                console.error('Error fetching patient data:', error);
+                console.error('Error:', error);
             }
         };
 
         fetchPatientData();
     }, [numero_atendimento]);
 
+    if (!patientData) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <div>
-            <h1>Patient Report for {numero_atendimento}</h1>
-            {patientData ? (
-                <div>
-                    <p>Full Name: {patientData.nome_completo}</p>
-                    <p>Gender: {patientData.sexo}</p>
-                    {/* Render other patient data as needed */}
-                    <h2>Exams:</h2>
-                    <ul>
-                        {patientData.exames.map((exam, index) => (
-                            <li key={index}>
-                                <p>Code: {exam.codigo}</p>
-                                <p>Description: {exam.descricao}</p>
-                                <p>Value: {exam.valor}</p>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            ) : (
-                <p>Loading patient data...</p>
-            )}
+            <h1>Relatório do Paciente</h1>
+            <div>
+                <strong>ID:</strong> {patientData.id}
+            </div>
+            <div>
+                <strong>Número de Atendimento:</strong> {patientData.numero_atendimento}
+            </div>
+            <div>
+                <strong>Nome Completo:</strong> {patientData.nome_completo}
+            </div>
+            <div>
+                <strong>Gênero:</strong> {patientData.sexo}
+            </div>
+            <div>
+                <strong>Email:</strong> {patientData.email}
+            </div>
+            <div>
+                <strong>Celular:</strong> {patientData.celular || 'N/A'}
+            </div>
+            {/* Adicione estilos conforme necessário */}
         </div>
     );
 };
