@@ -1,6 +1,6 @@
 // components/RegistrationForm.js
 import React, { useState } from 'react';
-import { TextField, Button, Container, Typography, Grid } from '@mui/material';
+import { TextField, Button, Container, Typography, Grid, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 
 const RegistrationForm = () => {
     const [formData, setFormData] = useState({
@@ -53,20 +53,29 @@ const RegistrationForm = () => {
                     <Grid item xs={12}>
                         <TextField
                             fullWidth
-                            label="Full Name"
+                            label="Nome Completo"
                             name="nome_completo"
                             value={formData.nome_completo}
                             onChange={handleInputChange}
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField
-                            fullWidth
-                            label="Gender"
-                            name="sexo"
-                            value={formData.sexo}
-                            onChange={handleInputChange}
-                        />
+                        <FormControl fullWidth>
+                            <InputLabel>Gênero</InputLabel>
+                            <Select
+                                name="sexo"
+                                value={formData.sexo}
+                                onChange={handleInputChange}
+                                label="Gênero"
+                            >
+                                <MenuItem value="">
+                                    Selecione o seu Gênero
+                                </MenuItem>
+                                <MenuItem value="male">Masculino</MenuItem>
+                                <MenuItem value="female">Feminino</MenuItem>
+                                <MenuItem value="other">Outro</MenuItem>
+                            </Select>
+                        </FormControl>
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
@@ -80,7 +89,7 @@ const RegistrationForm = () => {
                     <Grid item xs={12}>
                         <TextField
                             fullWidth
-                            label="Phone"
+                            label="Celular"
                             name="celular"
                             value={formData.celular}
                             onChange={handleInputChange}
