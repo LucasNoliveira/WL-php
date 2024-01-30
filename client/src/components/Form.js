@@ -70,7 +70,10 @@ const RegistrationForm = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formDataComCodigo),
+                body: JSON.stringify({
+                    ...formData,
+                    exames: formData.exame ? [formData.exame] : [],
+                }),
             });
 
             if (response.ok) {
@@ -118,77 +121,83 @@ const RegistrationForm = () => {
                     <Typography>Gênero: {patientData.sexo}</Typography>
                     <Typography>Email: {patientData.email}</Typography>
                     <Typography>Celular: {patientData.celular}</Typography>
-                    <Typography>Exames: {patientData.exames}</Typography>
+                    <Typography>Exames:</Typography>
+                    <ul>
+                        {patientData.exames.map((exame) => (
+                            <div key={exame.codigo}>
+                                {exame.descricao}
+                            </div>
+                        ))}
+                    </ul>
                 </div>
-            ) : (
-                <form onSubmit={handleSubmit}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <TextField
-                                fullWidth
-                                label="Nome Completo"
-                                name="nome_completo"
-                                value={formData.nome_completo}
-                                onChange={handleInputChange}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <FormControl fullWidth>
-                                <InputLabel>Gênero</InputLabel>
-                                <Select
-                                    name="sexo"
-                                    value={formData.sexo}
-                                    onChange={handleInputChange}
-                                    label="Gênero"
-                                >
-                                    <MenuItem value="">Selecione o seu Gênero</MenuItem>
-                                    <MenuItem value="M">Masculino</MenuItem>
-                                    <MenuItem value="F">Feminino</MenuItem>
-                                    <MenuItem value="O">Outro</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                fullWidth
-                                label="Email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleInputChange}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                fullWidth
-                                label="Celular"
-                                name="celular"
-                                value={formData.celular}
-                                onChange={handleInputChange}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <FormControl fullWidth>
-                                <InputLabel>Exame</InputLabel>
-                                <Select
-                                    name="exame"
-                                    value={formData.exame}
-                                    onChange={handleInputChange}
-                                    label="Exame"
-                                >
-                                    <MenuItem value="">Selecione o Exame</MenuItem>
-                                    {exames.map((exame) => (
-                                        <MenuItem key={exame.codigo} value={exame.codigo}>
-                                            {exame.descricao}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </Grid>
+            ) : (<form onSubmit={handleSubmit}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <TextField
+                            fullWidth
+                            label="Nome Completo"
+                            name="nome_completo"
+                            value={formData.nome_completo}
+                            onChange={handleInputChange}
+                        />
                     </Grid>
-                    <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>
-                        Cadastrar paciente
-                    </Button>
-                </form>
+                    <Grid item xs={12}>
+                        <FormControl fullWidth>
+                            <InputLabel>Gênero</InputLabel>
+                            <Select
+                                name="sexo"
+                                value={formData.sexo}
+                                onChange={handleInputChange}
+                                label="Gênero"
+                            >
+                                <MenuItem value="">Selecione o seu Gênero</MenuItem>
+                                <MenuItem value="M">Masculino</MenuItem>
+                                <MenuItem value="F">Feminino</MenuItem>
+                                <MenuItem value="O">Outro</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            fullWidth
+                            label="Email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            fullWidth
+                            label="Celular"
+                            name="celular"
+                            value={formData.celular}
+                            onChange={handleInputChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <FormControl fullWidth>
+                            <InputLabel>Exame</InputLabel>
+                            <Select
+                                name="exame"
+                                value={formData.exame}
+                                onChange={handleInputChange}
+                                label="Exame"
+                            >
+                                <MenuItem value="">Selecione o Exame</MenuItem>
+                                {exames.map((exame) => (
+                                    <MenuItem key={exame.codigo} value={exame.codigo}>
+                                        {exame.descricao}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                </Grid>
+                <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>
+                    Cadastrar paciente
+                </Button>
+            </form>
             )}
         </Container>
     );
