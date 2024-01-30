@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     TextField,
     Button,
@@ -21,15 +21,37 @@ const RegistrationForm = () => {
         sexo: '',
         email: '',
         celular: '',
+        exame: '',
     });
 
     const [showWelcomeMessage, setShowWelcomeMessage] = useState(true);
-    const [patientData, setPatientData] = useState(null);  // Add this line to declare patientData state
+    const [patientData, setPatientData] = useState(null);
+    const [exames, setExames] = useState([]); // Estado para armazenar a lista de exames disponíveis
+
+    useEffect(() => {
+        // Busca a lista de exames quando o componente é montado
+        const fetchExames = async () => {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/exames');
+                if (response.ok) {
+                    const dadosExames = await response.json();
+                    setExames(dadosExames);
+                    console.log(dadosExames)
+                } else {
+                    console.error('Falha ao buscar os exames');
+                }
+            } catch (error) {
+                console.error('Erro ao buscar os exames:', error);
+            }
+        };
+
+        fetchExames();
+    }, []); // Executa o efeito apenas uma vez no montante do componente
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prevData) => ({
-            ...prevData,
+        setFormData((dadosAnteriores) => ({
+            ...dadosAnteriores,
             [name]: value,
         }));
     };
@@ -38,29 +60,35 @@ const RegistrationForm = () => {
         e.preventDefault();
 
         try {
+            const exameSelecionado = exames.find((exame) => exame.descricao === formData.exame);
+            const codigoExame = exameSelecionado ? exameSelecionado.codigo : '';
+
+            const formDataComCodigo = { ...formData, exame: codigoExame };
+
             const response = await fetch('http://127.0.0.1:8000/api/cadastrar-paciente', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(formDataComCodigo),
             });
 
             if (response.ok) {
-                const responseData = await response.json();
-                console.log('Patient registered successfully:', responseData);
+                const dadosResposta = await response.json();
+                console.log('Paciente cadastrado com sucesso:', dadosResposta);
+                console.log(formDataComCodigo)
 
-                const { numero_atendimento } = responseData;
-                const patientResponse = await fetch(`http://127.0.0.1:8000/api/pacientes/${numero_atendimento}`);
-                const patientData = await patientResponse.json();
-                setPatientData(patientData);
+                const { numero_atendimento } = dadosResposta;
+                const respostaPaciente = await fetch(`http://127.0.0.1:8000/api/pacientes/${numero_atendimento}`);
+                const dadosPaciente = await respostaPaciente.json();
+                setPatientData(dadosPaciente);
             } else {
-                console.error('Failed to register patient');
-                // Handle the error, e.g., display an error message to the user
+                console.error('Falha ao cadastrar o paciente');
+                // Lidar com o erro, por exemplo, exibir uma mensagem de erro ao usuário
             }
         } catch (error) {
-            console.error('Error:', error);
-            // Handle error
+            console.error('Erro:', error);
+            // Lidar com o erro
         }
     };
 
@@ -84,7 +112,7 @@ const RegistrationForm = () => {
                 </DialogActions>
             </Dialog>
             {patientData ? (
-                // Render patient data after successful registration
+                // Renderizar os dados do paciente após o cadastro bem-sucedido
                 <div>
                     <Typography variant="h5">Relatório do Paciente</Typography>
                     <Typography>Nome: {patientData.nome_completo}</Typography>
@@ -138,6 +166,24 @@ const RegistrationForm = () => {
                                 value={formData.celular}
                                 onChange={handleInputChange}
                             />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FormControl fullWidth>
+                                <InputLabel>Exames</InputLabel>
+                                <Select
+                                    name="exames"
+                                    value={formData.exame}
+                                    onChange={handleInputChange}
+                                    label="Exame"
+                                >
+                                    <MenuItem value="">Selecione o Exame</MenuItem>
+                                    {exames.map((exame) => (
+                                        <MenuItem key={exame.codigo} value={exame.codigo}>
+                                            {exame.descricao}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
                         </Grid>
                     </Grid>
                     <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>
