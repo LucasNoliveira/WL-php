@@ -1,94 +1,106 @@
 import React, { useState } from 'react';
-import { TextField, Button, Grid, Container, Typography } from '@mui/material';
-import '../styles.css';
+import {
+  TextField,
+  Button,
+  Grid,
+  Container,
+  Typography,
+} from '@mui/material';
 
 const ExamForm = () => {
-    const [examData, setExamData] = useState({
-        codigo: '',
-        descricao: '',
-        valor: '',
+  const [formData, setFormData] = useState({
+    codigo: '',
+    descricao: '',
+    valor: '',
+  });
+
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleFieldChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+    setErrorMessage('');
+  };
+
+  const submitForm = async (e) => {
+    e.preventDefault();
+  
+    const emptyField = Object.keys(formData).find((key) => formData[key].trim() === '');
+  
+    if (emptyField) {
+      setErrorMessage(`${emptyField.replace('_', ' ')} não pode estar vazio.`);
+      return;
+    }
+  
+    try {
+      const response = await postData('http://127.0.0.1:8000/api/cadastrar-exame', formData);
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Exam registered successfully:', data);
+      } else {
+        const errorData = await response.json();
+        console.error('Failed to register exam:', errorData.message);
+        setErrorMessage(
+          'Verifique se o exame cadastrado já existe ou se existe outro com o mesmo código.'
+        );
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setErrorMessage(
+        'Ocorreu um erro ao processar a solicitação. Verifique se o exame cadastrado já existe, ou se existe outro com o mesmo código. Por favor, tente novamente.'
+      );
+    }
+  };
+
+  const postData = async (url, data) => {
+    return await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
     });
+  };
 
-    const [errorMessage, setErrorMessage] = useState('');
+  const styles = {
+    errorText: { marginTop: '10px', color: 'red' },
+    submitButton: { marginTop: '20px' },
+  };
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setExamData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
-        setErrorMessage('');
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        try {
-            const response = await fetch('http://127.0.0.1:8000/api/cadastrar-exame', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(examData),
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                console.log('Exam registered successfully:', data);
-            } else {
-                const errorData = await response.json();
-                console.error('Failed to register exam:', errorData.message);
-                setErrorMessage('Verifique se o exame cadastrado já existe ou se existe outro com o mesmo código.');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            setErrorMessage('Ocorreu um erro ao processar a solicitação. Verifique se o exame cadastrado já existe, ou se existe outro com o mesmo código. Por favor, tente novamente.');
-        }
-    };
-
-    return (
-        <Container component="main" maxWidth="sm">
-            <form onSubmit={handleSubmit}>
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <TextField
-                            fullWidth
-                            label="Código"
-                            name="codigo"
-                            value={examData.codigo}
-                            onChange={handleInputChange}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            fullWidth
-                            label="Descrição"
-                            name="descricao"
-                            value={examData.descricao}
-                            onChange={handleInputChange}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            fullWidth
-                            label="Valor"
-                            name="valor"
-                            value={examData.valor}
-                            onChange={handleInputChange}
-                        />
-                    </Grid>
-                </Grid>
-                {errorMessage && (
-                    <Typography color="error" style={{ marginTop: '10px' }}>
-                        {errorMessage}
-                    </Typography>
-                )}
-                <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>
-                    Enviar Exame
-                </Button>
-            </form>
-        </Container>
-    );
+  return (
+    <Container component="main" maxWidth="sm">
+      <form onSubmit={submitForm}>
+        <Grid container spacing={2}>
+          {['codigo', 'descricao', 'valor'].map((fieldName) => (
+            <Grid item xs={12} key={fieldName}>
+              <TextField
+                fullWidth
+                label={fieldName.charAt(0).toUpperCase() + fieldName.slice(1)}
+                name={fieldName}
+                value={formData[fieldName]}
+                onChange={handleFieldChange}
+              />
+            </Grid>
+          ))}
+        </Grid>
+        {errorMessage && (
+          <Typography style={styles.errorText}>{errorMessage}</Typography>
+        )}
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          style={styles.submitButton}
+        >
+          Enviar Exame
+        </Button>
+      </form>
+    </Container>
+  );
 };
 
 export default ExamForm;
