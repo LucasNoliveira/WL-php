@@ -17,7 +17,6 @@ const ExamForm = () => {
             ...prevData,
             [name]: value,
         }));
-        // Clear error message when input changes
         setErrorMessage('');
     };
 
@@ -36,7 +35,6 @@ const ExamForm = () => {
             if (response.ok) {
                 const data = await response.json();
                 console.log('Exam registered successfully:', data);
-                // You can update the UI or redirect the user after successful registration
             } else {
                 const errorData = await response.json();
                 console.error('Failed to register exam:', errorData.message);

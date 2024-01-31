@@ -23,7 +23,7 @@ const RegistrationForm = () => {
         sexo: '',
         email: '',
         celular: '',
-        exames: [], // Alterado para um array para armazenar múltiplos exames
+        exames: [],
     });
 
     const [showWelcomeMessage, setShowWelcomeMessage] = useState(true);
@@ -86,11 +86,9 @@ const RegistrationForm = () => {
                 setPatientData(dadosPaciente);
             } else {
                 console.error('Falha ao cadastrar o paciente');
-                // Lidar com o erro, por exemplo, exibir uma mensagem de erro ao usuário
             }
         } catch (error) {
             console.error('Erro:', error);
-            // Lidar com o erro
         }
     };
 
