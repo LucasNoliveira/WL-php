@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { Button, CssBaseline, Container, Typography } from '@mui/material';
 import RegistrationForm from './components/Form';
 import ExamForm from './components/ExamForm';
-import './styles.css';
 
 const App = () => {
   const [showPatientForm, setShowPatientForm] = useState(true);
