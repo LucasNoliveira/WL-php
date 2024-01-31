@@ -15,6 +15,7 @@ const ExamForm = () => {
   });
 
   const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleFieldChange = (e) => {
     const { name, value } = e.target;
@@ -23,24 +24,33 @@ const ExamForm = () => {
       [name]: value,
     }));
     setErrorMessage('');
+    setSuccessMessage('');
   };
 
   const submitForm = async (e) => {
     e.preventDefault();
-  
+
+    // Verificar se algum campo está vazio
     const emptyField = Object.keys(formData).find((key) => formData[key].trim() === '');
-  
+
     if (emptyField) {
       setErrorMessage(`${emptyField.replace('_', ' ')} não pode estar vazio.`);
       return;
     }
-  
+
     try {
       const response = await postData('http://127.0.0.1:8000/api/cadastrar-exame', formData);
-  
+
       if (response.ok) {
         const data = await response.json();
         console.log('Exam registered successfully:', data);
+        setSuccessMessage(`Exame ${formData.descricao} cadastrado com sucesso.`);
+        // Limpar o formulário após o sucesso, se desejado
+        setFormData({
+          codigo: '',
+          descricao: '',
+          valor: '',
+        });
       } else {
         const errorData = await response.json();
         console.error('Failed to register exam:', errorData.message);
@@ -68,6 +78,7 @@ const ExamForm = () => {
 
   const styles = {
     errorText: { marginTop: '10px', color: 'red' },
+    successText: { marginTop: '10px', color: 'green' },
     submitButton: { marginTop: '20px' },
   };
 
@@ -89,6 +100,9 @@ const ExamForm = () => {
         </Grid>
         {errorMessage && (
           <Typography style={styles.errorText}>{errorMessage}</Typography>
+        )}
+        {successMessage && (
+          <Typography style={styles.successText}>{successMessage}</Typography>
         )}
         <Button
           type="submit"
