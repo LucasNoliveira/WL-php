@@ -9,12 +9,16 @@ const ExamForm = () => {
         valor: '',
     });
 
+    const [errorMessage, setErrorMessage] = useState('');
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setExamData((prevData) => ({
             ...prevData,
             [name]: value,
         }));
+        // Clear error message when input changes
+        setErrorMessage('');
     };
 
     const handleSubmit = async (e) => {
@@ -34,10 +38,13 @@ const ExamForm = () => {
                 console.log('Exam registered successfully:', data);
                 // You can update the UI or redirect the user after successful registration
             } else {
-                console.error('Failed to register exam');
+                const errorData = await response.json();
+                console.error('Failed to register exam:', errorData.message);
+                setErrorMessage('Verifique se o exame cadastrado já existe ou se existe outro com o mesmo código.');
             }
         } catch (error) {
             console.error('Error:', error);
+            setErrorMessage('Ocorreu um erro ao processar a solicitação. Verifique se o exame cadastrado já existe, ou se existe outro com o mesmo código. Por favor, tente novamente.');
         }
     };
 
@@ -73,6 +80,11 @@ const ExamForm = () => {
                         />
                     </Grid>
                 </Grid>
+                {errorMessage && (
+                    <Typography color="error" style={{ marginTop: '10px' }}>
+                        {errorMessage}
+                    </Typography>
+                )}
                 <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>
                     Enviar Exame
                 </Button>
