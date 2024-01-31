@@ -13,6 +13,8 @@ import {
     DialogTitle,
     DialogContent,
     DialogActions,
+    List,
+    ListItem,
 } from '@mui/material';
 
 const RegistrationForm = () => {
@@ -112,18 +114,20 @@ const RegistrationForm = () => {
                 </DialogActions>
             </Dialog>
             {patientData ? (
-                <div>
+                <div style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', padding: '16px', borderRadius: '8px', background: '#fff' }}>
                     <Typography variant="h5">Relatório do Paciente</Typography>
                     <Typography>Nome: {patientData.nome_completo}</Typography>
                     <Typography>Gênero: {patientData.sexo}</Typography>
                     <Typography>Email: {patientData.email}</Typography>
                     <Typography>Celular: {patientData.celular}</Typography>
-                    <Typography>Exames:</Typography>
-                    <ul>
+                    <Typography variant="h6" style={{ marginTop: '16px' }}>Exames:</Typography>
+                    <List>
                         {patientData.exames.map((exame) => (
-                            <div key={exame.codigo}>{exame.descricao}</div>
+                            <ListItem key={exame.codigo} style={{ padding: '8px', borderBottom: '1px solid #ccc' }}>
+                                <Typography>{exame.descricao}</Typography>
+                            </ListItem>
                         ))}
-                    </ul>
+                    </List>
                 </div>
             ) : (
                 <form onSubmit={handleSubmit}>
