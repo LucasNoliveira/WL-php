@@ -26,4 +26,3 @@ Route::post('/cadastrar-exame', [ExameController::class, 'cadastrarExame']);
 Route::get('/exames', [ExameController::class, 'visualizarExames']);
 Route::get('/pacientes', [PacienteController::class, 'listarPacientes']);
 Route::get('/pacientes/{numero_atendimento}', [PacienteController::class, 'obterPaciente']);
-
