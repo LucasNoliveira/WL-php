@@ -4,26 +4,25 @@
 Este projeto é um sistema de gerenciamento para laboratórios, desenvolvido para atender às necessidades específicas desse setor. O sistema permite o registro de atendimentos, informações do paciente e resultados de exames.
 
 ## Pré-requisitos
-Node.js
-Composer
-Laravel
-Banco de dados SQLite
+  <img height="30em" src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" />
+<img height="30" src="https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white" />
+<img height="30" src="https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white" />
 
 ## Instalação
-git clone https://github.com/seu-usuario/seu-projeto.git
+`git clone https://github.com/LucasNoliveira/WL-php`
 
 ## Instale as dependências do backend:
-composer install
+`composer install`
 
-cd client
-npm install
+`cd client`
+`npm install`
 
 ## Uso
-cd api
-php artisan serve
+`cd api`
+`php artisan serve`
 
-cd client
-npm start
+`cd client`
+`npm start`
 
 Acesse o aplicativo no navegador: http://localhost:3000
 
